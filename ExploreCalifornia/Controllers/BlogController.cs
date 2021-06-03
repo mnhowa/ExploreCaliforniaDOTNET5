@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ExploreCalifornia.Models;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace ExploreCalifornia.Controllers
         [Route("")]
         public IActionResult Index()
         {
-            return new ContentResult { Content = "Blog posts" };
+            return View();
         }
 
         [Route("{year:min(2000)}/{month:range(1,12)}/{key}")]
@@ -20,7 +21,15 @@ namespace ExploreCalifornia.Controllers
         {
 
             //parameter name is important, as that's what .NET Core looks for in the url params
-            return new ContentResult { Content = $"{year} - {month} - {key}" };
+            var post = new Post
+            {
+                Title = "My blog post",
+                Posted = DateTime.Now,
+                Author = "Marco Howard",
+                Body = "This is a great blog post!"
+            };
+
+            return View(post);
         }
     }
 }
