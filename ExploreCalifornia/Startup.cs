@@ -1,6 +1,8 @@
+using ExploreCalifornia.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -39,6 +41,11 @@ namespace ExploreCalifornia
                 DeveloperExceptions = configuration.GetValue<bool>("FeatureToggles:EnableDeveloperExceptions")
             });
 
+            services.AddDbContext<BlogDataContext>(options =>
+            {
+                var connectionString = configuration.GetConnectionString("BlogDataContext");
+                options.UseSqlServer(connectionString);
+            });
 
             // Configures Mvc middleware
             services.AddMvc();
