@@ -47,6 +47,8 @@ namespace ExploreCalifornia
                 options.UseSqlServer(connectionString);
             });
 
+            services.AddTransient<FormattingService>();
+
             // Configures Mvc middleware
             services.AddMvc();
         }
